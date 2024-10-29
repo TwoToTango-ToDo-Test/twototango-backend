@@ -1,0 +1,23 @@
+{
+    "name": "TwoToTango Backend",
+    "dockerComposeFile": "docker-compose.yaml",
+    "service": "twototango-backend-dev",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "customizations": {
+		"vscode": {
+			"extensions": [
+                "dbaeumer.vscode-eslint",
+                "sonarsource.sonarlint-vscode",
+                "esbenp.prettier-vscode",
+                "usernamehw.errorlens",
+                "streetsidesoftware.code-spell-checker",
+                "vivaxy.vscode-conventional-commits",
+                "inlang.vs-code-extension"
+			]
+		}
+	},
+    "features": {
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    },
+    "postCreateCommand": "npm install"
+}

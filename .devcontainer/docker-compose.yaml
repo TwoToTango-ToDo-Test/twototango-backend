@@ -1,0 +1,62 @@
+services:
+  twototango-backend-dev:
+    container_name: twototango-backend-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+    ports:
+      - "5500:5500"
+    networks:
+      - node-dev
+
+  twototango-backend-service:
+    container_name: twototango-backend-service
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.app
+    volumes:
+      - ../..:/workspaces:cached
+    ports:
+      - "8080:8080"
+    networks:
+      - twototango-dev
+
+  twototango-mysql:
+    container_name: twototango-mysql
+    image: mysql:8.0
+    restart: unless-stopped
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: testnode
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testnode
+      MYSQL_PASSWORD: testnode
+    ports:
+      - "33060:3306"
+    networks:
+      - twototango-dev
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: twototango-mysql
+      MYSQL_ROOT_PASSWORD: testnode
+    ports:
+      - "8081:80"
+    depends_on:
+      - twototango-mysql
+    networks:
+      - twototango-dev
+
+volumes:
+  db_data:
+
+networks:
+  twototango-dev:
+    name: twototango-dev
