@@ -4,23 +4,22 @@ import {
     Model,
     PrimaryKey,
     DataType,
-    BelongsTo,
     ForeignKey,
+    BelongsTo,
 } from "sequelize-typescript";
-import { Sede } from "./sede.schema";
+import { User } from "./user.schema";
+import { Status } from "./status.schema";
 
-export interface IUser {
+export interface ITask {
     id: string;
     name: string;
-    email: string;
-    password: string;
-    sedeId: string;
+    status: number;
     createdAt?: Date;
     updatedAt?: Date;
 }
 
 @Table
-export class User extends Model<IUser> {
+export class Task extends Model<ITask> {
     @PrimaryKey
     @Column({
         type: DataType.UUID,
@@ -35,27 +34,25 @@ export class User extends Model<IUser> {
     })
     public name!: string;
 
+    @ForeignKey(() => Status)
     @Column({
-        type: DataType.STRING,
+        type: DataType.INTEGER,
         allowNull: false,
     })
-    public email!: string;
+    public status!: number;
 
-    @Column({
-        type: DataType.STRING,
-        allowNull: false,
-    })
-    public password!: string;
+    @BelongsTo(() => Status, { as: "statusData" })
+    public statusAssociation!: Status;
 
-    @ForeignKey(() => Sede)
+    @ForeignKey(() => User)
     @Column({
         type: DataType.UUID,
         allowNull: false,
     })
-    public sedeId!: string;
+    public userId!: string;
 
-    @BelongsTo(() => Sede)
-    public sede!: Sede;
+    @BelongsTo(() => User)
+    public user!: User;
 
     @Column({
         type: DataType.DATE,

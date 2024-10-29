@@ -5,13 +5,13 @@ import { UserRepository } from "src/repositories/user.repository";
 
 import { CreateUserService } from "src/services/auth/CreateUserService";
 import { LoginService } from "src/services/auth/LoginService";
-import { UserModule } from "./user.module";
-import { SedeRepository } from "src/repositories/sede.repository";
+import { TaskModule } from "./task.module";
+import { TaskRepository } from "src/repositories/task.repository";
 
 @Module({
-    imports: [UserModule],
+    imports: [TaskModule],
     controllers: [AuthControllers],
-    providers: [CreateUserService, LoginService, UserRepository, SedeRepository],
+    providers: [CreateUserService, LoginService, UserRepository, TaskRepository],
     exports: [UserRepository],
 })
 export class AuthModule {}

@@ -1,3 +1,4 @@
+
 services:
   twototango-backend-dev:
     container_name: twototango-backend-dev
@@ -6,23 +7,24 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ../..:/workspaces:cached
+    entrypoint: /usr/local/share/docker-init.sh
     command: sleep infinity
     ports:
       - "5500:5500"
     networks:
-      - node-dev
-
-  twototango-backend-service:
-    container_name: twototango-backend-service
-    build:
-      context: ..
-      dockerfile: .devcontainer/Dockerfile.app
-    volumes:
-      - ../..:/workspaces:cached
-    ports:
-      - "8080:8080"
-    networks:
       - twototango-dev
+
+  # twototango-backend-service:
+  #   container_name: twototango-backend-service
+  #   build:
+  #     context: ..
+  #     dockerfile: .devcontainer/Dockerfile.app
+  #   volumes:
+  #     - ../..:/workspaces:cached
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - twototango-dev
 
   twototango-mysql:
     container_name: twototango-mysql

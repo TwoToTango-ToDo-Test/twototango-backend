@@ -7,9 +7,9 @@ import type {
     ILoginServiceResponse,
     ILoginServiceDataResponseData,
 } from "src/core/auth/ILoginService";
-import type { IUser } from "src/entities/user.schema";
+import type { IUser } from "src/models/user.schema";
 import { UserRepository } from "src/repositories/user.repository";
-import { UserValidations } from "src/services/users/UserValidations";
+import { UserValidations } from "src/services/auth/UserValidations";
 
 @Injectable()
 export class LoginService implements ILoginService {

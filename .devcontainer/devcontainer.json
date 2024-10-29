@@ -4,20 +4,22 @@
     "service": "twototango-backend-dev",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "customizations": {
-		"vscode": {
-			"extensions": [
+        "vscode": {
+            "extensions": [
                 "dbaeumer.vscode-eslint",
                 "sonarsource.sonarlint-vscode",
                 "esbenp.prettier-vscode",
                 "usernamehw.errorlens",
                 "streetsidesoftware.code-spell-checker",
                 "vivaxy.vscode-conventional-commits",
-                "inlang.vs-code-extension"
-			]
-		}
-	},
+                "inlang.vs-code-extension",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    },
     "features": {
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
     },
     "postCreateCommand": "npm install"
 }
+

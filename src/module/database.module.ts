@@ -1,7 +1,8 @@
 import { Module } from "@nestjs/common";
 import { Sequelize } from "sequelize-typescript";
-import { Sede } from "src/entities/sede.schema";
-import { User } from "src/entities/user.schema";
+import { User } from "src/models/user.schema";
+import { Task } from "src/models/task.schema";
+import { Status } from "src/models/status.schema";
 
 export const databaseProviders = [
     {
@@ -16,8 +17,8 @@ export const databaseProviders = [
                 password: "testnode",
                 database: "testdb",
             });
-            sequelize.addModels([User
-            ]);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            sequelize.addModels([User, Task, Status]);
             await sequelize.sync();
             return sequelize;
         },
