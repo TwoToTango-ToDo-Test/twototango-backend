@@ -53,15 +53,15 @@ export class LoginService implements ILoginService {
     public ValidateAsync = async (request: ILoginServiceRequest): Promise<string[]> => {
         const errors: string[] = [];
 
-        const emailErrors: string[] = await this.userValidations.EmailIsValidAsync(request.Email);
-        const passwordErrors: string[] = this.userValidations.PasswordIsValid(request.Password);
+        // const emailErrors: string[] = await this.userValidations.EmailIsValidAsync(request.Email);
+        // const passwordErrors: string[] = this.userValidations.PasswordIsValid(request.Password);
 
-        if (emailErrors.length > 0) {
-            errors.push(...emailErrors);
-        }
-        if (passwordErrors.length > 0) {
-            errors.push(...passwordErrors);
-        }
+        // if (emailErrors.length > 0) {
+        //     errors.push(...emailErrors);
+        // }
+        // if (passwordErrors.length > 0) {
+        //     errors.push(...passwordErrors);
+        // }
 
         return errors;
     };

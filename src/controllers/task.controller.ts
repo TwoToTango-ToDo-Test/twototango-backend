@@ -6,12 +6,17 @@ import {
     Param,
     Body,
     Patch,
+    Post,
 } from "@nestjs/common";
 import { ApiTags, ApiOperation, ApiBody, ApiBearerAuth } from "@nestjs/swagger";
 
 import { AuthGuard } from "src/services/auth/auth.guard";
+import { CreateNewTaskService, CreateNewTaskServiceRequest, CreateNewTaskServiceResponse } from "src/services/tasks/CreateNewTaskService";
 import { GetAllTaskService } from "src/services/tasks/GetAllTaskService";
-import type { GetAllTaskServiceResponse } from "src/services/tasks/GetAllTaskService";
+import type {
+    GetAllTaskServiceRequest,
+    GetAllTaskServiceResponse,
+} from "src/services/tasks/GetAllTaskService";
 
 import { GetTaskByUserIdService } from "src/services/tasks/GetTaskByUserIdService";
 import type {
@@ -29,14 +34,16 @@ export class TaskControllers {
         private readonly getAllTaskService: GetAllTaskService,
         private readonly getTaskByIdService: GetTaskByUserIdService,
         private readonly updateTaskService: UpdateTaskService,
+        private readonly createNewTaskService: CreateNewTaskService,
     ) {}
 
     @UseGuards(AuthGuard)
-    @Get("getAll")
+    @Get("getAllByUserId/:id")
     @ApiBearerAuth()
     @ApiOperation({ summary: "Get all tasks" })
-    public async CreateTaskAsync(): Promise<GetAllTaskServiceResponse> {
-        const task = await this.getAllTaskService.ExecuteAsync();
+    public async getAllByUser(@Param("id") id: string): Promise<GetAllTaskServiceResponse> {
+        const request: GetAllTaskServiceRequest = { Id: id };
+        const task = await this.getAllTaskService.ExecuteAsync(request);
         if (!task.Success) {
             throw new BadRequestException(task);
         }
@@ -65,6 +72,21 @@ export class TaskControllers {
         @Body() request: UpdateTaskServiceRequest,
     ): Promise<UpdateTaskServiceResponse> {
         const task = await this.updateTaskService.ExecuteAsync(request);
+        if (!task.Success) {
+            throw new BadRequestException(task);
+        }
+
+        return task;
+    }
+
+    @UseGuards(AuthGuard)
+    @Post("createTask")
+    @ApiBearerAuth()
+    @ApiBody({ type: CreateNewTaskServiceRequest })
+    public async CreateTaskAsync(
+        @Body() request: CreateNewTaskServiceRequest,
+    ): Promise<CreateNewTaskServiceResponse> {
+        const task = await this.createNewTaskService.ExecuteAsync(request);
         if (!task.Success) {
             throw new BadRequestException(task);
         }

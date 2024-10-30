@@ -11,7 +11,7 @@ import { TaskRepository } from "src/repositories/task.repository";
 @Module({
     imports: [TaskModule],
     controllers: [AuthControllers],
-    providers: [CreateUserService, LoginService, UserRepository, TaskRepository],
+    providers: [CreateUserService, LoginService, UserRepository, TaskRepository, UserRepository],
     exports: [UserRepository],
 })
 export class AuthModule {}

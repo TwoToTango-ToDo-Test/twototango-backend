@@ -10,7 +10,7 @@ services:
     entrypoint: /usr/local/share/docker-init.sh
     command: sleep infinity
     ports:
-      - "5500:5500"
+      - "5500:80"
     networks:
       - twototango-dev
 
@@ -22,7 +22,7 @@ services:
   #   volumes:
   #     - ../..:/workspaces:cached
   #   ports:
-  #     - "8080:8080"
+  #     - "8080:80"
   #   networks:
   #     - twototango-dev
 

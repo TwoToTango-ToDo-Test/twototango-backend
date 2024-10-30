@@ -7,7 +7,9 @@ export interface IGetAllTaskService
         IGetAllTaskServiceDataResponseData
     > {}
 
-export interface IGetAllTaskServiceRequest extends IServiceRequest {}
+export interface IGetAllTaskServiceRequest extends IServiceRequest {
+    Id: string;
+}
 
 export interface IGetAllTaskServiceResponse
     extends IServiceResponse<IGetAllTaskServiceDataResponseData> {}

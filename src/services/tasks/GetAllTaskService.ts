@@ -8,6 +8,7 @@ import type {
 } from "src/core/tasks/IGetAllTaskService";
 import { UserValidations } from "../auth/UserValidations";
 import { TaskRepository } from "src/repositories/task.repository";
+import { ApiProperty } from "@nestjs/swagger";
 
 @Injectable()
 export class GetAllTaskService implements IGetAllTaskService {
@@ -16,8 +17,10 @@ export class GetAllTaskService implements IGetAllTaskService {
         private readonly taskModel: TaskRepository,
     ) {}
 
-    public ExecuteAsync = async (): Promise<IGetAllTaskServiceResponse> => {
-        const validations = await this.ValidateAsync();
+    public ExecuteAsync = async (
+        request: IGetAllTaskServiceRequest,
+    ): Promise<IGetAllTaskServiceResponse> => {
+        const validations = await this.ValidateAsync(request);
         if (validations.length > 0) {
             return new GetAllTaskServiceResponse({
                 Message: "Validation error",
@@ -26,7 +29,7 @@ export class GetAllTaskService implements IGetAllTaskService {
             });
         }
 
-        const tasks = await this.taskModel.GetAll();
+        const tasks = await this.taskModel.GetAllByUserId(request.Id);
 
         const taskInfo: ITasksInfo[] = tasks.map((task) => {
             return {
@@ -46,7 +49,7 @@ export class GetAllTaskService implements IGetAllTaskService {
         });
     };
 
-    public ValidateAsync = async (): Promise<string[]> => {
+    public ValidateAsync = async (request: IGetAllTaskServiceRequest): Promise<string[]> => {
         const errors: string[] = [];
 
         const tasks = await this.taskModel.GetAll();
@@ -54,12 +57,18 @@ export class GetAllTaskService implements IGetAllTaskService {
         if (tasks.length === 0) {
             errors.push("No tasks found");
         }
+        if (!request.Id) {
+            errors.push("Id is required");
+        }
 
         return errors;
     };
 }
 
-export class GetAllTaskServiceRequest implements IGetAllTaskServiceRequest {}
+export class GetAllTaskServiceRequest implements IGetAllTaskServiceRequest {
+    @ApiProperty()
+    public Id!: string;
+}
 
 export class GetAllTaskServiceDataResponseData implements IGetAllTaskServiceDataResponseData {
     public TaskInfo!: ITasksInfo[];

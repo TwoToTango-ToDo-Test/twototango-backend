@@ -1,9 +1,9 @@
-import { IRepository } from "src/core/IRepository";
+import type { IRepository } from "src/core/IRepository";
 
 export abstract class Repository<T> implements IRepository<T> {
-	abstract Create(model: T): Promise<T>;
-	abstract Update(model: T): Promise<T>;
-	abstract Delete(model: T): Promise<T>;
-	abstract GetAll(): Promise<T[]>;
-	abstract GetById(id: string): Promise<T>;
+    public abstract Create(model: T): Promise<T>;
+    public abstract Update(model: T): Promise<T>;
+    public abstract Delete(model: T): Promise<T>;
+    public abstract GetAll(): Promise<T[]>;
+    public abstract GetById(id: string): Promise<T>;
 }

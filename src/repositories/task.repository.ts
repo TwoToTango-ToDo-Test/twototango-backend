@@ -38,6 +38,20 @@ export class TaskRepository implements Repository<Task> {
         return tasks;
     };
 
+    public GetAllByUserId = async (userId: string): Promise<Task[]> => {
+        const tasks = await Task.findAll({
+            where: { userId: userId },
+            include: [
+                {
+                    model: Status,
+                    attributes: ["name"],
+                },
+            ],
+        });
+
+        return tasks;
+    };
+
     public GetById = async (id: string): Promise<Task> => {
         const task = await Task.findByPk(id);
         if (!task) {

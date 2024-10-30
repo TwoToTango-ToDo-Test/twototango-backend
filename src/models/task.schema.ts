@@ -14,6 +14,7 @@ export interface ITask {
     id: string;
     name: string;
     status: number;
+    userId: string;
     createdAt?: Date;
     updatedAt?: Date;
 }

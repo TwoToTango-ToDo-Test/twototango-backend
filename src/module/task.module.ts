@@ -8,6 +8,8 @@ import { TaskRepository } from "src/repositories/task.repository";
 
 import { JwtModule } from "@nestjs/jwt";
 import { UserValidations } from "src/services/auth/UserValidations";
+import { UserRepository } from "src/repositories/user.repository";
+import { CreateNewTaskService } from "src/services/tasks/CreateNewTaskService";
 
 @Module({
     imports: [
@@ -23,9 +25,11 @@ import { UserValidations } from "src/services/auth/UserValidations";
         GetAllTaskService,
         GetTaskByUserIdService,
         UpdateTaskService,
+        CreateNewTaskService,
         UserValidations,
+        UserRepository,
         TaskRepository,
     ],
-    exports: [TaskRepository, UserValidations],
+    exports: [TaskRepository, UserValidations, UserRepository],
 })
 export class TaskModule {}
