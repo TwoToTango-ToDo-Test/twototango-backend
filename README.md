@@ -43,3 +43,7 @@ En la aplicación hay dos archivos que son importantes para mi solución:
 Repository.ts: Contiene una clase abstracta que contiene los métodos CRUD reutilizables, al tener un tipado generico permite que cualquier módelo lo utilice facilitando la creación de nuevos servicios y manteniendo una consistencia.
 
 IService.ts Contiene un conjunto de interfaces que mantienen una consistencia de la manera en que se deben desarrollar los diferentes servicios, esto ayuda a mantener un orden tanto en el desarrollo del código como en las respuestas de las APIs.
+
+Se desarrollo twototango-backend con el patron Modelo Vista Controlador (MVC) y con el ORM de Node Sequelize.
+
+Se separan responsabilidades y se usa nombres descriptivos para diferenciar y fácilitar el entendimiento el código.
